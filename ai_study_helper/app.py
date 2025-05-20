@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -10,8 +11,9 @@ def analyze():
     topic = data.get('topic', 'N/A')
 
     return jsonify({
-        'suggestion': f'Học viên {userid} nên ôn lại chủ đề: "{topic}" trong khóa học {courseid}.'
+        'suggestion': f'Học viên {userid} nên ôn lại chủ đề: \"{topic}\" trong khóa học {courseid}.'
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    port = int(os.environ.get('PORT', 5000))  # ✅ dùng biến môi trường PORT
+    app.run(host='0.0.0.0', port=port)
